@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.min.css';
+
+import User from './components/authentication/User';
+import Visitor from './components/authentication/Visitor';
+
+import Home from './screens/UserScreens/Home';
+import Login from './screens/VisitorScreens/Login';
+import Register from './screens/VisitorScreens/Register';
+import ForgotPassword from './screens/VisitorScreens/ForgotPassword';
+import ActivationMail from './screens/ActivationMail';
+import NewPassword from './screens/VisitorScreens/NewPassword';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Routes>
+        <Route path='/' element={<User />}>
+          <Route index path='/' element={<Home />} />
+        </Route>
+
+        <Route path='/' element={<Visitor />}>
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/user/new-password/:token' element={<NewPassword />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
+        </Route>
+        <Route path='/user/verify-email/:id' element={<ActivationMail />} />
+      </Routes>
     </div>
   );
 }
+
+// /user/new-password/
 
 export default App;
