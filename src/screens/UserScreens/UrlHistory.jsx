@@ -40,7 +40,7 @@ const UrlHistory = () => {
     <Container className='mt-5'>
       {userUrls?.length > 0 && (
         <div className='mb-5'>
-          <h1 className='text-light fw-semibold mb-3'>Your Shorten Urls</h1>
+          <h2 className='text-light fw-semibold mb-3'>Your Shorten Urls</h2>
           <div
             className='table-responsive m-auto'
             style={{ borderRadius: '.5rem' }}
