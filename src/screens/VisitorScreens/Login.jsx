@@ -103,7 +103,7 @@ const Login = () => {
 
             <Link
               to='/forgot-password'
-              className='text-decoration-none'
+              className='text-decoration-none text-end'
               style={{ color: '#494eea' }}
             >
               Forgot Password?
