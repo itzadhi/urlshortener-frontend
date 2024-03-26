@@ -68,7 +68,7 @@ const Home = () => {
       getUrlsHandler();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userUrls]);
+  }, []);
 
   useEffect(() => {
     if (userUrls?.length > 0) {

@@ -45,7 +45,7 @@ const ForgotPassword = () => {
         >
           {isLoading ? (
             <>
-              <i class='fa fa-spinner fa-spin'></i> Loading
+              <i className='fa fa-spinner fa-spin'></i> Loading
             </>
           ) : (
             'Submit'

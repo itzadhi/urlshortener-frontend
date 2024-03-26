@@ -1,5 +1,4 @@
 import React from 'react';
-import spinner from '../../assets/spinner.gif';
 import { Row } from 'react-bootstrap';
 
 function Spinner() {
@@ -8,11 +7,7 @@ function Spinner() {
       className='justify-content-center align-items-center'
       style={{ height: '80vh' }}
     >
-      <img
-        src={spinner}
-        style={{ width: '10rem', margin: 'auto', display: 'block' }}
-        alt='Loading...'
-      />
+      <div class='custom-loader'></div>
     </Row>
   );
 }

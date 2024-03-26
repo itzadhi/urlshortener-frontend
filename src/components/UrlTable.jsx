@@ -29,10 +29,12 @@ const UrlTable = ({ userUrls }) => {
             <tr key={item?._id}>
               <th className='p-4'>{index + 1}</th>
               <td className='p-4' style={{ position: 'relative' }}>
-                <span className='float-left'>{item?.shortenUrl} </span>
+                <span className='d-inline-flex '>{item?.shortenUrl} </span>
                 <span
-                  className='float-right'
-                  style={{ position: 'absolute', right: '0.5rem' }}
+                  style={{
+                    position: 'absolute',
+                    right: '0.6rem',
+                  }}
                 >
                   <CopyToClipboard
                     text={item?.shortenUrl}
