@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { setUserStatus } from '../slices/authSlice';
 import { toast } from 'react-toastify';
 
 const ActivationMail = () => {
-  const navigate = useNavigate();
   let { id } = useParams();
   const dispatch = useDispatch();
 
