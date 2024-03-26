@@ -1,0 +1,93 @@
+body {
+  background-color: #5372f0;
+  background: linear-gradient(to right bottom, #5372f0, #ffbcbc);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.header {
+  background: transparent;
+}
+
+.hero {
+  height: 20rem;
+  width: 20rem;
+  background-color: transparent;
+  border: 3px solid #fff;
+}
+
+.hero-number {
+  font-size: 10rem;
+}
+
+.custom-btn {
+  background: #494eea;
+  color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  border: 0;
+  outline: 0;
+}
+
+.custom-btn:hover,
+.custom-btn:focus {
+  background-color: #fff;
+  color: #494eea;
+  border: 1px solid #494eea;
+}
+
+.custom-outline-btn {
+  background: #fff;
+  color: #494eea;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #494eea;
+}
+
+.custom-outline-btn:hover,
+.custom-outline-btn:focus {
+  background: #494eea;
+  color: #fff;
+}
+
+.url-btn {
+  border: 0;
+  outline: 0;
+}
+
+.custom-input:focus {
+  border: 1px solid #494eea;
+}
+
+.custom-table {
+  background-color: #494eea !important;
+  color: #fff !important;
+  border: 1px solid #494eea;
+}
+
+.custom-table-td {
+  overflow-wrap: break-word;
+  max-width: 30rem;
+}
+
+@media (max-width: 500px) {
+  .hero {
+    height: 50%;
+    width: 50%;
+  }
+
+  .url-card {
+    padding: 1.8rem !important;
+  }
+
+  .url-content {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .custom-btn {
+    margin-top: 0.5rem;
+    padding: 0.5rem 0;
+  }
+}

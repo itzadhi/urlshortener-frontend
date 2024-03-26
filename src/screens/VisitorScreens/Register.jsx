@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import FormContainer from '../../components/FormContainer';
 import ErrorBox from '../../components/ErrorBox';
 import { useRegisterMutation } from '../../slices/userApiSlice';
@@ -36,7 +36,6 @@ const Register = () => {
       navigate('/login');
     } catch (err) {
       setError(err?.data?.message || err.error);
-      console.log(err?.data?.message || err.error);
     }
   };
 
@@ -52,6 +51,8 @@ const Register = () => {
             placeholder='Enter first name'
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
+            className='custom-input shadow-none'
+            required={true}
           ></Form.Control>
         </Form.Group>
 
@@ -62,6 +63,8 @@ const Register = () => {
             placeholder='Enter last name'
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
+            className='custom-input shadow-none'
+            required={true}
           ></Form.Control>
         </Form.Group>
 
@@ -72,6 +75,8 @@ const Register = () => {
             placeholder='Enter email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className='custom-input shadow-none'
+            required={true}
           ></Form.Control>
         </Form.Group>
 
@@ -82,32 +87,36 @@ const Register = () => {
             placeholder='Enter password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className='custom-input shadow-none'
+            required={true}
           ></Form.Control>
         </Form.Group>
 
-        <Button
+        <button
           disabled={isLoading}
           type='submit'
-          variant='primary'
-          className='my-2 w-100 fs-5'
+          className='my-2 p-2 w-100 fs-5 custom-btn'
         >
-          Register
-        </Button>
+          {isLoading ? (
+            <>
+              <i class='fa fa-spinner fa-spin'></i> Loading
+            </>
+          ) : (
+            'Register'
+          )}
+        </button>
       </Form>
 
       <Link to='/login'>
         {' '}
-        <Button
-          // disabled={isLoading}
+        <button
+          disabled={isLoading}
           type='submit'
-          variant='outline-primary'
-          className='my-2 w-100 fs-5'
+          className='my-2 p-2 w-100 fs-5 custom-outline-btn'
         >
           Login
-        </Button>
+        </button>
       </Link>
-
-      {/* {isLoading && <Loader />} */}
     </FormContainer>
   );
 };

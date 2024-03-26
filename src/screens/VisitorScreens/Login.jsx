@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Row, Col } from 'react-bootstrap';
 import FormContainer from '../../components/FormContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -13,7 +13,7 @@ import InfoBox from '../../components/InfoBox';
 import { toast } from 'react-toastify';
 
 const Login = () => {
-  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const [activateUserInfo, setActivateUserInfo] = useState('');
@@ -36,7 +36,6 @@ const Login = () => {
         'While activating your account, something went wrong. Please login again',
         { position: 'top-right' }
       );
-      console.log(err?.data?.message || err.error);
     }
   };
 
@@ -45,7 +44,7 @@ const Login = () => {
     setError('');
     e.preventDefault();
     try {
-      const res = await login({ userName, password }).unwrap();
+      const res = await login({ email, password }).unwrap();
 
       if (!res?.isEmailVerified) {
         setActivateUserInfo(
@@ -56,7 +55,6 @@ const Login = () => {
       }
     } catch (err) {
       setError(err?.data?.message || err.error);
-      console.log(err?.data?.message || err.error);
     }
   };
 
@@ -64,6 +62,7 @@ const Login = () => {
     if (activateUserStatus !== '') {
       activationHandler();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -72,13 +71,15 @@ const Login = () => {
       {activateUserInfo && <InfoBox message={activateUserInfo} />}
       {error && <ErrorBox message={error} />}
       <Form onSubmit={submitHandler}>
-        <Form.Group className='my-2' controlId='username'>
-          <Form.Label>Username</Form.Label>
+        <Form.Group className='my-2' controlId='email'>
+          <Form.Label>Email</Form.Label>
           <Form.Control
-            type='text'
-            placeholder='Enter username'
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
+            type='email'
+            placeholder='Enter email'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className='custom-input shadow-none'
+            required={true}
           ></Form.Control>
         </Form.Group>
 
@@ -89,6 +90,8 @@ const Login = () => {
             placeholder='Enter password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className='custom-input shadow-none'
+            required={true}
           ></Form.Control>
         </Form.Group>
 
@@ -98,35 +101,41 @@ const Login = () => {
               <input type='checkbox' /> Remember Me
             </span>
 
-            <Link to='/forgot-password' className='text-decoration-none'>
+            <Link
+              to='/forgot-password'
+              className='text-decoration-none'
+              style={{ color: '#494eea' }}
+            >
               Forgot Password?
             </Link>
           </Col>
         </Row>
 
-        <Button
-          // disabled={isLoading}
+        <button
+          disabled={isLoading}
           type='submit'
-          variant='primary'
-          className='my-2 w-100 fs-5'
+          className='my-2 p-2 w-100 fs-5 custom-btn'
         >
-          Login
-        </Button>
+          {isLoading ? (
+            <>
+              <i class='fa fa-spinner fa-spin'></i> Loading
+            </>
+          ) : (
+            'Login'
+          )}
+        </button>
       </Form>
 
       <Link to='/register'>
         {' '}
-        <Button
+        <button
           disabled={isLoading}
           type='submit'
-          variant='outline-primary'
-          className='my-2 w-100 fs-5'
+          className='my-2 p-2 w-100 fs-5 custom-outline-btn'
         >
           Register
-        </Button>
+        </button>
       </Link>
-
-      {/* {isLoading && <Loader />} */}
     </FormContainer>
   );
 };

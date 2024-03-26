@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
+import { Form } from 'react-bootstrap';
 import FormContainer from '../../components/FormContainer';
 import ErrorBox from '../../components/ErrorBox';
 import { useNewPasswordMutation } from '../../slices/userApiSlice';
@@ -32,7 +32,6 @@ const NewPassword = () => {
         dispatch(setCredentials({ ...res }));
       } catch (err) {
         toast.error(err?.data?.message || err.error, { position: 'top-right' });
-        console.log(err?.data?.message || err.error);
       }
     }
   };
@@ -49,6 +48,8 @@ const NewPassword = () => {
             placeholder='Enter password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className='custom-input shadow-none'
+            required={true}
           ></Form.Control>
         </Form.Group>
 
@@ -59,17 +60,24 @@ const NewPassword = () => {
             placeholder='Confirm your password'
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            className='custom-input shadow-none'
+            required={true}
           ></Form.Control>
         </Form.Group>
 
-        <Button
+        <button
           disabled={isLoading}
           type='submit'
-          variant='primary'
-          className='my-2 w-100 fs-5'
+          className='my-2 p-2 w-100 fs-5 custom-btn'
         >
-          Submit
-        </Button>
+          {isLoading ? (
+            <>
+              <i class='fa fa-spinner fa-spin'></i> Loading
+            </>
+          ) : (
+            'Submit'
+          )}
+        </button>
       </Form>
     </FormContainer>
   );
