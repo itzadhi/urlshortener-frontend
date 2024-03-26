@@ -11,6 +11,7 @@ const ActivationMail = () => {
   useEffect(() => {
     dispatch(setUserStatus(id));
     navigate('/login');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return null;

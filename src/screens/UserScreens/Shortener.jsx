@@ -33,6 +33,7 @@ const Shortener = () => {
     if (shortUrl?.length === 0 && copyText) {
       setCopyText(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shortUrl]);
 
   return (

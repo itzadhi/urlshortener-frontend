@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import UrlTable from '../../components/UrlTable';
 import { useGetUrlsMutation } from '../../slices/urlApiSlice';
@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 const UrlHistory = () => {
   const dispatch = useDispatch();
-  const [getUrls, { isLoading }] = useGetUrlsMutation();
+  const [getUrls] = useGetUrlsMutation();
 
   const { userUrls } = useSelector((state) => state.url);
 
@@ -27,6 +27,7 @@ const UrlHistory = () => {
     if (userUrls?.length === 0) {
       getUrlsHandler();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userUrls]);
 
   return (
