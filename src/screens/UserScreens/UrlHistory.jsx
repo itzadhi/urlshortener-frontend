@@ -5,7 +5,6 @@ import { useGetUrlsMutation } from '../../slices/urlApiSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserUrls } from '../../slices/urlSlice';
 import { toast } from 'react-toastify';
-import moment from 'moment';
 
 const UrlHistory = () => {
   const dispatch = useDispatch();
@@ -17,10 +16,11 @@ const UrlHistory = () => {
     try {
       const res = await getUrls().unwrap();
       const formattedData = res?.map((item) => {
-        const formattedDate = moment
-          ?.utc(item?.createdAt)
-          ?.format('DD-MM-YYYY');
-        return { ...item, createdAt: formattedDate };
+        const formattedDate = new Date(item?.createdAt)
+          ?.toLocaleString()
+          ?.split(',');
+
+        return { ...item, createdAt: formattedDate?.[0] };
       });
       dispatch(getUserUrls(formattedData));
     } catch (err) {

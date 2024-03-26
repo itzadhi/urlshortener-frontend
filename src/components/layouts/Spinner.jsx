@@ -7,7 +7,7 @@ function Spinner() {
       className='justify-content-center align-items-center'
       style={{ height: '80vh' }}
     >
-      <div class='custom-loader'></div>
+      <div className='custom-loader'></div>
     </Row>
   );
 }

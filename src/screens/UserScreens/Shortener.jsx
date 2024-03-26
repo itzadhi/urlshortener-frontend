@@ -2,8 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Button, Form, InputGroup, Container, Row, Col } from 'react-bootstrap';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { toast } from 'react-toastify';
-import { useCreateUrlMutation } from '../../slices/urlApiSlice';
+import {
+  useCreateUrlMutation,
+  useGetUrlsMutation,
+} from '../../slices/urlApiSlice';
 import { IoCopyOutline, IoCopy } from 'react-icons/io5';
+import { useDispatch } from 'react-redux';
+import { getUserUrls } from '../../slices/urlSlice';
 
 const Shortener = () => {
   const [longUrl, setLongUrl] = useState('');
@@ -11,6 +16,25 @@ const Shortener = () => {
   const [copyText, setCopyText] = useState(false);
 
   const [createUrl, { isLoading }] = useCreateUrlMutation();
+
+  const dispatch = useDispatch();
+  const [getUrls] = useGetUrlsMutation();
+
+  const getUrlsHandler = async () => {
+    try {
+      const res = await getUrls().unwrap();
+      const formattedData = res?.map((item) => {
+        const formattedDate = new Date(item?.createdAt)
+          ?.toLocaleString()
+          ?.split(',');
+
+        return { ...item, createdAt: formattedDate?.[0] };
+      });
+      dispatch(getUserUrls(formattedData?.reverse()));
+    } catch (err) {
+      toast.error(err?.data?.message || err.error, { position: 'top-right' });
+    }
+  };
 
   const createUrlHandler = async () => {
     if (longUrl?.length === 0) {
@@ -23,6 +47,9 @@ const Shortener = () => {
       toast.success('Your url has created sucessfully', {
         position: 'top-right',
       });
+
+      //Update new data
+      getUrlsHandler();
     } catch (err) {
       toast.error(err?.data?.message || err.error, { position: 'top-right' });
       console.log(err?.data?.message || err.error);

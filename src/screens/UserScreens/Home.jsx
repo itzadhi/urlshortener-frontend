@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserUrls } from '../../slices/urlSlice';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import moment from 'moment';
 import Spinner from '../../components/layouts/Spinner';
 
 const Home = () => {
@@ -24,10 +23,11 @@ const Home = () => {
     try {
       const res = await getUrls().unwrap();
       const formattedData = res?.map((item) => {
-        const formattedDate = moment
-          ?.utc(item?.createdAt)
-          ?.format('DD-MM-YYYY');
-        return { ...item, createdAt: formattedDate };
+        const formattedDate = new Date(item?.createdAt)
+          ?.toLocaleString()
+          ?.split(',');
+
+        return { ...item, createdAt: formattedDate?.[0] };
       });
       dispatch(getUserUrls(formattedData?.reverse()));
     } catch (err) {
@@ -40,22 +40,24 @@ const Home = () => {
   };
 
   const getCount = () => {
-    let todayDate = moment(new Date(), 'DD-MM-YYYY').format('DD-MM-YYYY');
-    let formattedDate = todayDate?.split('-');
+    let todayDate = new Date()?.toLocaleString()?.split(',');
+    let formattedDate = todayDate?.[0]?.split('/');
 
     const today = userUrls?.reduce((sum, item) => {
-      if (item?.createdAt === todayDate) {
+      if (item?.createdAt === todayDate?.[0]) {
         sum += 1;
       }
       return sum;
     }, 0);
+
     setTodayCount(today);
     const last30Days = userUrls?.reduce((sum, item) => {
-      let customDate = item?.createdAt?.split('-');
+      let itemDate = item?.createdAt?.split('/');
 
       let lastMonth =
         formattedDate?.[1] === '01' ? 12 : Number(formattedDate?.[1] - 1);
-      if (Number(customDate?.[1]) === lastMonth) {
+
+      if (Number(itemDate?.[1]) === lastMonth) {
         sum += 1;
       }
       return sum;
