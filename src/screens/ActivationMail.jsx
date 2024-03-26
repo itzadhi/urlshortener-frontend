@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { setUserStatus } from '../slices/authSlice';
+import { toast } from 'react-toastify';
 
 const ActivationMail = () => {
   const navigate = useNavigate();
@@ -10,7 +11,12 @@ const ActivationMail = () => {
 
   useEffect(() => {
     dispatch(setUserStatus(id));
-    navigate('/login');
+    toast.info(
+      'Your account has been activated, you will be redirected to the home page',
+      {
+        position: 'top-right',
+      }
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
